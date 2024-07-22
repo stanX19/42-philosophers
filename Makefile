@@ -10,7 +10,7 @@ HEADER_DIR	= philo
 HEADERS		:= $(shell find $(HEADER_DIR) -name '*.h')
 HEADERS_INC	= $(addprefix -I,$(sort $(dir $(HEADERS))))
 
-LIBS		= $(LIBFT)
+LIBS		= $(LIBFT) -lpthread
 
 IFLAGS		:= -I. $(HEADERS_INC)
 

@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 21:15:30 by stan              #+#    #+#             */
-/*   Updated: 2024/07/21 21:58:37 by stan             ###   ########.fr       */
+/*   Updated: 2024/07/22 22:53:59 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ void	delete_data(t_data *data)
 		free(data->philo_arr);
 }
 
-static t_philo	*create_philo_arr(int count, t_vars *vars,
-		t_mutex *forks)
+static t_philo	*create_philo_arr(int count, t_vars *vars, t_mutex *forks)
 {
 	t_philo	*ret;
 	int		i;
@@ -36,7 +35,9 @@ static t_philo	*create_philo_arr(int count, t_vars *vars,
 	i = 0;
 	while (i < count)
 	{
-		ret[i].status = S_THINKING;
+		ret[i].index = i + 1;
+		ret[i].eat_count = 0;
+		ret[i].state = S_PENDING;
 		ret[i].last_eat = 0;
 		ret[i].vars = vars;
 		ret[i].left_fork = forks + i;
@@ -52,6 +53,7 @@ int	init_data(t_data *data, int argc, char *const *argv)
 	data->vars.death_time = (t_time)ft_atou(argv[2], ULLONG_MAX);
 	data->vars.eat_time = (t_time)ft_atou(argv[3], ULLONG_MAX);
 	data->vars.sleep_time = (t_time)ft_atou(argv[4], ULLONG_MAX);
+	data->vars.start_time = 0;
 	data->vars.eat_needed = -1;
 	if (argc == 6)
 		data->vars.eat_needed = ft_atou(argv[5], LLONG_MAX);
@@ -67,6 +69,88 @@ int	init_data(t_data *data, int argc, char *const *argv)
 	return (0);
 }
 
+void	philo_set_state(t_philo *philo, t_time time, t_state new_state)
+{
+	philo->state = new_state;
+	printf("%lu %i ", time, philo->index);
+	if (new_state == S_EATING)
+		printf("is eating\n");
+	else if (new_state == S_THINKING)
+		printf("is thinking\n");
+	else if (new_state == S_SLEEPING)
+		printf("is sleeping\n");
+	else if (new_state == S_DEAD)
+		printf("died\n");
+}
+
+void	*philo_run(void *_philo)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)_philo;
+	while (philo->state == S_PENDING)
+		;
+	printf("philo %i started\n", philo->index);
+	philo->last_eat = philo->vars->start_time;
+	while (philo->state != S_DEAD)
+	{
+		philo_set_state(philo, get_current_ms() - philo->vars->start_time,
+			S_THINKING);
+		usleep(100);
+		if (get_current_ms() - philo->last_eat > philo->vars->death_time)
+			philo_set_state(philo, get_current_ms() - philo->vars->start_time,
+				S_DEAD);
+	}
+	return (NULL);
+}
+
+void	start_all_threads(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->philo_count)
+	{
+		pthread_create(data->thread_arr + i, NULL, philo_run,
+			data->philo_arr + i);
+		i++;
+	}
+	data->vars.start_time = get_current_ms();
+	i = 0;
+	while (i < data->philo_count)
+		data->philo_arr[i++].state = S_THINKING;
+}
+
+void	end_all_threads(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->philo_count)
+		data->philo_arr[i++].state = S_DEAD;
+	i = 0;
+	while (i < data->philo_count)
+		pthread_join(data->thread_arr[i++], NULL);
+}
+
+void	wait_to_end(t_data *data)
+{
+	bool	running;
+	int		i;
+
+	running = true;
+	while (running)
+	{
+		i = 0;
+		while (i < data->philo_count)
+		{
+			if (data->philo_arr[i].state == S_DEAD)
+				running = false;
+			i++;
+		}
+	}
+}
+
 int	main(int argc, char *const *argv)
 {
 	t_data	data;
@@ -75,6 +159,9 @@ int	main(int argc, char *const *argv)
 		return (1);
 	if (init_data(&data, argc, argv))
 		return (1);
+	start_all_threads(&data);
+	wait_to_end(&data);
+	end_all_threads(&data);
 	delete_data(&data);
 	return (0);
 }

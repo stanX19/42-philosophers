@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 17:10:39 by shatan            #+#    #+#             */
-/*   Updated: 2024/07/21 21:49:34 by stan             ###   ########.fr       */
+/*   Updated: 2024/07/22 22:44:22 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@
 # include <unistd.h>
 
 # ifdef __APPLE__
-  typedef u_int64_t t_time;
+typedef u_int64_t		t_time;
 # else
-  typedef suseconds_t t_time;
+typedef suseconds_t		t_time;
 # endif
-typedef pthread_mutex_t t_mutex;
-typedef pthread_t t_thread;
+typedef pthread_mutex_t	t_mutex;
+typedef pthread_t		t_thread;
 
 typedef enum e_status
 {
@@ -38,7 +38,8 @@ typedef enum e_status
 	S_THINKING,
 	S_SLEEPING,
 	S_DEAD,
-}	t_status;
+	S_PENDING,
+}						t_state;
 
 typedef struct s_vars
 {
@@ -47,18 +48,18 @@ typedef struct s_vars
 	t_time				sleep_time;
 	t_time				start_time;
 	long long			eat_needed;
-}	t_vars;
-
+}						t_vars;
 
 typedef struct s_philo
 {
-	t_status	status;
-	t_time		last_eat;
-	t_mutex		*left_fork;
-	t_mutex		*right_fork;
-	t_vars		*vars;
-}	t_philo;
-
+	int					eat_count;
+	int					index;
+	t_state				state;
+	t_time				last_eat;
+	t_mutex				*left_fork;
+	t_mutex				*right_fork;
+	t_vars				*vars;
+}						t_philo;
 
 typedef struct s_data
 {
@@ -69,6 +70,6 @@ typedef struct s_data
 	t_mutex				*fork_arr;
 }						t_data;
 
-unsigned long long	ft_atou(const char *nptr, unsigned long long limit);
-
+unsigned long long		ft_atou(const char *nptr, unsigned long long limit);
+t_time					get_current_ms(void);
 #endif // PHILO

@@ -3,7 +3,7 @@ SRCS		:= $(shell find $(SRCDIR) -name '*.c')
 
 OBJDIR		= objs
 OBJDIRS		= $(sort $(dir $(OBJS)))
-OBJS		= $(subst $(SRCDIR),$(OBJDIR),$(subst .c,.o,$(SRCS)))
+OBJS		= $(subst $(SRCDIR)/,$(OBJDIR)/,$(subst .c,.o,$(SRCS)))
 
 CWD			:= $(shell pwd)
 HEADER_DIR	= philo

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 21:15:30 by stan              #+#    #+#             */
-/*   Updated: 2024/07/22 22:53:59 by stan             ###   ########.fr       */
+/*   Updated: 2024/07/23 16:38:49 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,28 @@ int	init_data(t_data *data, int argc, char *const *argv)
 	return (0);
 }
 
-void	philo_set_state(t_philo *philo, t_time time, t_state new_state)
+
+
+t_time	get_time_passed(t_philo *philo)
+{
+	return (get_current_ms() - philo->vars->start_time);
+}
+
+t_time	get_last_eat(t_philo *philo)
+{
+	return (get_current_ms() - philo->last_eat);
+}
+
+bool	philo_is_dead(t_philo *philo)
+{
+	return (philo->state == S_DEAD ||
+		get_last_eat(philo) > philo->vars->death_time);
+}
+
+void	philo_set_state(t_philo *philo, t_state new_state)
 {
 	philo->state = new_state;
-	printf("%lu %i ", time, philo->index);
+	printf(STATE_FMT, get_time_passed(philo), philo->index);
 	if (new_state == S_EATING)
 		printf("is eating\n");
 	else if (new_state == S_THINKING)
@@ -94,12 +112,10 @@ void	*philo_run(void *_philo)
 	philo->last_eat = philo->vars->start_time;
 	while (philo->state != S_DEAD)
 	{
-		philo_set_state(philo, get_current_ms() - philo->vars->start_time,
-			S_THINKING);
-		usleep(100);
-		if (get_current_ms() - philo->last_eat > philo->vars->death_time)
-			philo_set_state(philo, get_current_ms() - philo->vars->start_time,
-				S_DEAD);
+		philo_set_state(philo, S_THINKING);
+		usleep(1000 * (100 - (get_time_passed(philo)) % 100));
+		if (philo_is_dead(philo))
+			philo_set_state(philo, S_DEAD);
 	}
 	return (NULL);
 }

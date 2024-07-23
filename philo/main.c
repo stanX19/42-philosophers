@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 21:15:30 by stan              #+#    #+#             */
-/*   Updated: 2024/07/23 16:38:49 by shatan           ###   ########.fr       */
+/*   Updated: 2024/07/23 16:58:29 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,38 +67,6 @@ int	init_data(t_data *data, int argc, char *const *argv)
 		return (1);
 	}
 	return (0);
-}
-
-
-
-t_time	get_time_passed(t_philo *philo)
-{
-	return (get_current_ms() - philo->vars->start_time);
-}
-
-t_time	get_last_eat(t_philo *philo)
-{
-	return (get_current_ms() - philo->last_eat);
-}
-
-bool	philo_is_dead(t_philo *philo)
-{
-	return (philo->state == S_DEAD ||
-		get_last_eat(philo) > philo->vars->death_time);
-}
-
-void	philo_set_state(t_philo *philo, t_state new_state)
-{
-	philo->state = new_state;
-	printf(STATE_FMT, get_time_passed(philo), philo->index);
-	if (new_state == S_EATING)
-		printf("is eating\n");
-	else if (new_state == S_THINKING)
-		printf("is thinking\n");
-	else if (new_state == S_SLEEPING)
-		printf("is sleeping\n");
-	else if (new_state == S_DEAD)
-		printf("died\n");
 }
 
 void	*philo_run(void *_philo)

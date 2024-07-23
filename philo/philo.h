@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 17:10:39 by shatan            #+#    #+#             */
-/*   Updated: 2024/07/23 16:02:36 by shatan           ###   ########.fr       */
+/*   Updated: 2024/07/23 16:57:41 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,8 @@ typedef struct s_data
 
 unsigned long long		ft_atou(const char *nptr, unsigned long long limit);
 t_time					get_current_ms(void);
+t_time					get_time_passed(t_philo *philo);
+t_time					get_last_eat(t_philo *philo);
+bool					philo_is_dead(t_philo *philo);
+void					philo_set_state(t_philo *philo, t_state new_state);
 #endif // PHILO

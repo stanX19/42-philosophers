@@ -5,7 +5,7 @@ t_time	get_time_passed(t_philo *philo)
 	return (get_current_ms() - philo->vars->start_time);
 }
 
-t_time	get_last_eat(t_philo *philo)
+t_time	get_hungry_time(t_philo *philo)
 {
 	return (get_current_ms() - philo->last_eat);
 }
@@ -13,19 +13,21 @@ t_time	get_last_eat(t_philo *philo)
 bool	philo_is_dead(t_philo *philo)
 {
 	return (philo->state == S_DEAD ||
-		get_last_eat(philo) > philo->vars->death_time);
+		get_hungry_time(philo) >= philo->vars->death_time + 5);
 }
 
-void	philo_set_state(t_philo *philo, t_state new_state)
+void	philo_announce_action(t_philo *philo, const char *msg)
 {
-	philo->state = new_state;
-	printf(STATE_FMT, get_time_passed(philo), philo->index);
-	if (new_state == S_EATING)
-		printf("is eating\n");
-	else if (new_state == S_THINKING)
-		printf("is thinking\n");
-	else if (new_state == S_SLEEPING)
-		printf("is sleeping\n");
-	else if (new_state == S_DEAD)
-		printf("died\n");
+	printf(TIME_FMT_STR " %i %s\n", get_time_passed(philo), philo->index, msg);
+}
+
+void	philo_accurate_sleep(t_philo *philo, t_time time)
+{
+	t_time start;
+	t_time wait;
+
+	start = get_current_ms();
+	wait = time - get_time_passed(philo) % 100;
+	while (get_current_ms() - start < wait)
+		usleep(100);
 }

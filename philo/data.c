@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 17:00:13 by shatan            #+#    #+#             */
-/*   Updated: 2024/07/23 17:00:39 by shatan           ###   ########.fr       */
+/*   Updated: 2024/07/30 14:47:50 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,22 @@ static t_philo	*create_philo_arr(int count, t_vars *vars, t_mutex *forks)
 	return (ret);
 }
 
+static t_mutex	*create_mutex_arr(int count)
+{
+	t_mutex *ret;
+
+	ret = (t_mutex *)malloc(sizeof(t_mutex) * count);
+	int	i;
+	
+	i = 0;
+	while (i < count)
+	{
+		pthread_mutex_init(ret + i, NULL);
+		i++;
+	}
+	return ret;
+}
+
 int	init_data(t_data *data, int argc, char *const *argv)
 {
 	data->philo_count = ft_atou(argv[1], INT_MAX);
@@ -58,7 +74,7 @@ int	init_data(t_data *data, int argc, char *const *argv)
 	if (argc == 6)
 		data->vars.eat_needed = ft_atou(argv[5], LLONG_MAX);
 	data->thread_arr = (t_thread *)malloc(sizeof(t_thread) * data->philo_count);
-	data->fork_arr = (t_mutex *)malloc(sizeof(t_mutex) * data->philo_count);
+	data->fork_arr = create_mutex_arr(data->philo_count);
 	data->philo_arr = create_philo_arr(data->philo_count, &data->vars,
 			data->fork_arr);
 	if (errno)

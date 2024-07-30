@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 17:10:39 by shatan            #+#    #+#             */
-/*   Updated: 2024/07/23 17:04:29 by shatan           ###   ########.fr       */
+/*   Updated: 2024/07/30 17:57:26 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@
 # include <unistd.h>
 
 # ifdef __APPLE__
-#  define STATE_FMT "%llu %i "
+#  define TIME_FMT_STR "%llu"
 typedef u_int64_t		t_time;
 # else
-#  define STATE_FMT "%lu %i "
+#  define TIME_FMT_STR "%lu"
 typedef suseconds_t		t_time;
 # endif
 typedef pthread_mutex_t	t_mutex;
@@ -75,12 +75,15 @@ typedef struct s_data
 unsigned long long		ft_atou(const char *nptr, unsigned long long limit);
 t_time					get_current_ms(void);
 t_time					get_time_passed(t_philo *philo);
-t_time					get_last_eat(t_philo *philo);
+t_time					get_hungry_time(t_philo *philo);
 bool					philo_is_dead(t_philo *philo);
+void	philo_announce_action(t_philo *philo, const char *msg);
+void	philo_accurate_sleep(t_philo *philo, t_time time);
 void					philo_set_state(t_philo *philo, t_state new_state);
 void					*philo_run(void *_philo);
 void					delete_data(t_data *data);
 int						init_data(t_data *data, int argc, char *const *argv);
 void					start_all_threads(t_data *data);
 void					end_all_threads(t_data *data);
+void					philo_start_eat(t_philo *philo);
 #endif // PHILO

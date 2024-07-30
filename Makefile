@@ -15,14 +15,14 @@ LIBS		= $(LIBFT)
 IFLAGS		:= -I. $(HEADERS_INC)
 
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror -fsanitize=address -g3
+CFLAGS		= -Wall -Wextra -Werror #-fsanitize=address -g3
 AR			= ar -rcs
 RM			= rm -rf
 UP			= \033[1A
 FLUSH		= \033[2K
 
 NAME		= philosophers
-ARGV		= 2 400 100 100
+ARGV		= 3 300 100 100
 
 run: all
 	./$(NAME) $(ARGV)

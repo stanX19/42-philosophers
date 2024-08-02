@@ -1,4 +1,4 @@
-SRCDIR		= srcs/philo
+SRCDIR		= srcs/philo_bonus
 SRCS		:= $(shell find $(SRCDIR) -name '*.c')
 
 OBJDIR		= objs
@@ -15,14 +15,14 @@ LIBS		= $(LIBFT)
 IFLAGS		:= -I. $(HEADERS_INC)
 
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror #-fsanitize=address -g3
+CFLAGS		= -Wall -Wextra -Werror -fsanitize=address -g3
 AR			= ar -rcs
 RM			= rm -rf
 UP			= \033[1A
 FLUSH		= \033[2K
 
 NAME		= philo
-ARGV		= 2 200 100 100
+ARGV		= 2 400 100 100 1
 
 run: all
 	./$(NAME) $(ARGV)

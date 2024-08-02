@@ -25,10 +25,10 @@ NAME		= philosophers
 ARGV		= 3 300 100 100
 
 run: all
-	./$(NAME) $(ARGV)
+	./philo $(ARGV)
 
-$(NAME): $(LIBS) $(OBJDIRS) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(IFLAGS) $(LIBS) -o $(NAME)
+philo: $(LIBS) $(OBJDIRS) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(IFLAGS) $(LIBS) -o philo
 
 all: $(NAME)
 
@@ -44,7 +44,6 @@ clean:
 	@$(RM) $(OBJS)
 
 fclean:	clean
-	@$(RM) $(NAME)
 	@$(RM) $(TESTDIR)
 	@$(RM) $(OBJDIRS)
 	@$(RM) ./a.out
@@ -65,4 +64,4 @@ pull:
 	git reset --hard origin/$(BRANCH);
 	git submodule update --init --remote --recursive
 
-.PHONY: all clean fclean re bonus push
+.PHONY: all clean fclean re bonus push philo

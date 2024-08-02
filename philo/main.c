@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 21:15:30 by stan              #+#    #+#             */
-/*   Updated: 2024/07/23 17:03:36 by shatan           ###   ########.fr       */
+/*   Updated: 2024/08/02 13:28:49 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,25 @@
 static void	wait_to_end(t_data *data)
 {
 	bool	running;
+	int		complete_count;
 	int		i;
 
 	running = true;
 	while (running)
 	{
 		i = 0;
+		complete_count = 0;
 		while (i < data->philo_count)
 		{
 			if (data->philo_arr[i].state == S_DEAD)
 				running = false;
+			if (data->vars.eat_needed != -1
+				&& data->philo_arr[i].eat_count >= data->vars.eat_needed)
+				complete_count++;
 			i++;
 		}
+		if (complete_count == data->philo_count)
+			running = false;
 	}
 }
 

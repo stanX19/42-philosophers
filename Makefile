@@ -22,7 +22,7 @@ UP			= \033[1A
 FLUSH		= \033[2K
 
 NAME		= philo
-ARGV		= 3 300 100 100
+ARGV		= 2 200 100 100
 
 run: all
 	./$(NAME) $(ARGV)

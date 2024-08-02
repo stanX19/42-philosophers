@@ -1,4 +1,4 @@
-SRCDIR		= philo
+SRCDIR		= srcs/philo
 SRCS		:= $(shell find $(SRCDIR) -name '*.c')
 
 OBJDIR		= objs
@@ -21,14 +21,14 @@ RM			= rm -rf
 UP			= \033[1A
 FLUSH		= \033[2K
 
-NAME		= philosophers
+NAME		= philo
 ARGV		= 3 300 100 100
 
 run: all
-	./philo $(ARGV)
+	./$(NAME) $(ARGV)
 
-philo: $(LIBS) $(OBJDIRS) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(IFLAGS) $(LIBS) -o philo
+$(NAME): $(LIBS) $(OBJDIRS) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(IFLAGS) $(LIBS) -o $(NAME)
 
 all: $(NAME)
 
@@ -64,4 +64,4 @@ pull:
 	git reset --hard origin/$(BRANCH);
 	git submodule update --init --remote --recursive
 
-.PHONY: all clean fclean re bonus push philo
+.PHONY: all clean fclean re bonus push $(NAME)

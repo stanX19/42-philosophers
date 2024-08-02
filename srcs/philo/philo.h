@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 17:10:39 by shatan            #+#    #+#             */
-/*   Updated: 2024/07/30 17:57:26 by shatan           ###   ########.fr       */
+/*   Updated: 2024/08/02 13:44:01 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ t_time					get_current_ms(void);
 t_time					get_time_passed(t_philo *philo);
 t_time					get_hungry_time(t_philo *philo);
 bool					philo_is_dead(t_philo *philo);
-void	philo_announce_action(t_philo *philo, const char *msg);
-void	philo_accurate_sleep(t_philo *philo, t_time time);
+void					philo_announce_action(t_philo *philo, const char *msg);
+void					philo_accurate_sleep(t_philo *philo, t_time time);
 void					philo_set_state(t_philo *philo, t_state new_state);
 void					*philo_run(void *_philo);
 void					delete_data(t_data *data);

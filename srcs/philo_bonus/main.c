@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 21:15:30 by stan              #+#    #+#             */
-/*   Updated: 2024/08/02 18:15:31 by shatan           ###   ########.fr       */
+/*   Updated: 2024/08/08 14:24:43 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static void *wait_for_complete(void *_data)
 		sem_wait(data->vars.completed);
 		i++;
 	}
-	printf("\ncompleted\n");
 	data->running = false;
 	return NULL;
 }

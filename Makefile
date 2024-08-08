@@ -10,7 +10,13 @@ HEADER_DIR	= philo
 HEADERS		:= $(shell find $(HEADER_DIR) -name '*.h')
 HEADERS_INC	= $(addprefix -I,$(sort $(dir $(HEADERS))))
 
-LIBS		= $(LIBFT)
+ifeq ($(UNAME_S), Darwin)  # macos
+	LINKERS	= 
+else
+	LINKERS	= -lpthread
+endif
+
+LIBS		= $(LIBFT) $(LINKERS)
 
 IFLAGS		:= -I. $(HEADERS_INC)
 
@@ -22,10 +28,14 @@ UP			= \033[1A
 FLUSH		= \033[2K
 
 NAME		= philo
-ARGV		= 2 400 100 100 1
+ARGV		= 2 200 100 100 10
+
 
 run: all
 	./$(NAME) $(ARGV)
+
+kill:
+	kill $$(ps -A | grep $(NAME) | awk '{print $1}') 2> /dev/null
 
 $(NAME): $(LIBS) $(OBJDIRS) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(IFLAGS) $(LIBS) -o $(NAME)

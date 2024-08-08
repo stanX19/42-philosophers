@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 17:00:13 by shatan            #+#    #+#             */
-/*   Updated: 2024/08/02 18:04:12 by shatan           ###   ########.fr       */
+/*   Updated: 2024/08/08 14:21:55 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static t_philo	*create_philo_arr(int count, t_vars *vars)
 		ret[i].state = S_PENDING;
 		ret[i].last_eat = 0;
 		ret[i].vars = vars;
+		ret[i].pid = 0;
 		i++;
 	}
 	return (ret);
@@ -81,7 +82,7 @@ int	init_data(t_data *data, int argc, char *const *argv)
 	data->vars.forks = open_semaphore("/forks", data->philo_count);
 	data->vars.print = open_semaphore("/print", 1);
 	data->vars.dead = open_semaphore("/dead", 0);
-	data->vars.completed = open_semaphore("/completed", data->philo_count);
+	data->vars.completed = open_semaphore("/completed", 0);
 	if (errno)
 	{
 		delete_data(data);

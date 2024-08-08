@@ -14,12 +14,20 @@ void	start_all_subprocess(t_data *data)
 			philo_run(data->philo_arr + i);
 			exit(0);
 		}
+		else if (data->philo_arr[i].pid == -1)
+		{
+			end_all_subprocess(data);
+			delete_data(data);
+			exit(1);
+		}
 		i++;
 	}
 }
 
 void	end_all_subprocess(t_data *data)
 {
+	// kill(0, SIGKILL);
+	// (void)data;
 	int	i;
 
 	i = 0;

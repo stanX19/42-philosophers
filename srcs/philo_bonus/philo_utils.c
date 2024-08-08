@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 14:26:44 by shatan            #+#    #+#             */
-/*   Updated: 2024/08/02 14:27:58 by shatan           ###   ########.fr       */
+/*   Updated: 2024/08/08 14:32:41 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,10 @@ void	philo_announce_action(t_philo *philo, const char *msg)
 
 void	philo_accurate_sleep(t_philo *philo, t_time time)
 {
-	t_time start;
-	t_time wait;
+	t_time end;
 
-	start = get_current_ms();
-	wait = time - get_time_passed(philo) % 100;
-	while (get_current_ms() - start < wait)
+	end = get_time_passed(philo) + time;
+	end -= end % 100;
+	while (get_time_passed(philo) < end)
 		usleep(100);
 }

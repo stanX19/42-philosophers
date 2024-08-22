@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   subprocess.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/22 10:40:14 by stan              #+#    #+#             */
+/*   Updated: 2024/08/22 10:41:37 by stan             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo_bonus.h"
 
 void	start_all_subprocess(t_data *data)
@@ -26,8 +38,6 @@ void	start_all_subprocess(t_data *data)
 
 void	end_all_subprocess(t_data *data)
 {
-	// kill(0, SIGKILL);
-	// (void)data;
 	int	i;
 
 	i = 0;

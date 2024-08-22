@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 17:00:13 by shatan            #+#    #+#             */
-/*   Updated: 2024/08/02 17:08:26 by shatan           ###   ########.fr       */
+/*   Updated: 2024/08/22 10:48:36 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,17 @@ static t_philo	*create_philo_arr(int count, t_vars *vars, t_mutex *forks)
 
 static t_mutex	*create_mutex_arr(int count)
 {
-	t_mutex *ret;
+	t_mutex	*ret;
+	int		i;
 
 	ret = (t_mutex *)malloc(sizeof(t_mutex) * count);
-	int	i;
-	
 	i = 0;
 	while (i < count)
 	{
 		pthread_mutex_init(ret + i, NULL);
 		i++;
 	}
-	return ret;
+	return (ret);
 }
 
 int	init_data(t_data *data, int argc, char *const *argv)

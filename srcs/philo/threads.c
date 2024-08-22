@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 17:03:42 by shatan            #+#    #+#             */
-/*   Updated: 2024/08/02 17:08:36 by shatan           ###   ########.fr       */
+/*   Updated: 2024/08/22 10:36:17 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,21 @@ void	start_all_threads(t_data *data)
 
 void	end_all_threads(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < data->philo_count)
+	{
 		data->philo_arr[i++].state = S_DEAD;
+	}
 	i = 0;
 	while (i < data->philo_count)
 	{
-		pthread_detach(data->thread_arr[i]);
-		pthread_mutex_destroy(data->fork_arr + i);
-		++i;
+		pthread_join(data->thread_arr[i++], NULL);
+	}
+	i = 0;
+	while (i < data->philo_count)
+	{
+		pthread_mutex_destroy(data->fork_arr + i++);
 	}
 }

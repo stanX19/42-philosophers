@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 17:10:39 by shatan            #+#    #+#             */
-/*   Updated: 2024/08/02 18:04:01 by shatan           ###   ########.fr       */
+/*   Updated: 2024/08/22 10:45:32 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#ifndef PHILO_BONUS_H
+# define PHILO_BONUS_H
 # include <errno.h>
 # include <fcntl.h>
 # include <limits.h>
@@ -27,12 +27,17 @@
 # include <signal.h>
 
 # ifdef __APPLE__
-#  define TIME_FMT_STR "%llu"
+
 typedef u_int64_t		t_time;
+#  define TIME_FMT_STR "%llu"
+
 # else
-#  define TIME_FMT_STR "%lu"
+
 typedef suseconds_t		t_time;
+#  define TIME_FMT_STR "%lu"
+
 # endif
+
 typedef pthread_mutex_t	t_mutex;
 typedef pthread_t		t_thread;
 

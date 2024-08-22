@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 17:04:17 by shatan            #+#    #+#             */
-/*   Updated: 2024/08/08 14:24:13 by stan             ###   ########.fr       */
+/*   Updated: 2024/08/22 10:44:56 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,6 @@ static void	*observer_func(void *_philo)
 		if (!registered_done && philo->vars->eat_needed != -1
 			&& philo->eat_count >= philo->vars->eat_needed)
 		{
-		// sem_wait(philo->vars->print);
-		// printf("cond %i %i %i\n", !registered_done, philo->vars->eat_needed != -1
-		// 	,philo->eat_count >= philo->vars->eat_needed);
-		// sem_post(philo->vars->print);
 			sem_post(philo->vars->completed);
 			registered_done = true;
 		}

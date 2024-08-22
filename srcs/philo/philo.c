@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 17:04:17 by shatan            #+#    #+#             */
-/*   Updated: 2024/08/02 17:08:15 by shatan           ###   ########.fr       */
+/*   Updated: 2024/08/22 10:48:07 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	*death_observer_func(void *_philo)
 		if (philo_is_dead(philo))
 		{
 			philo_set_state(philo, S_DEAD);
-			return NULL;
+			return (NULL);
 		}
 		usleep(1000);
 	}

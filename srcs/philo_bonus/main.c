@@ -6,30 +6,29 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 21:15:30 by stan              #+#    #+#             */
-/*   Updated: 2024/08/08 14:24:43 by stan             ###   ########.fr       */
+/*   Updated: 2024/08/22 10:45:45 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-static void *wait_for_death(void *_data)
+static void	*wait_for_death(void *_data)
 {
 	t_data	*data;
-	
+
 	data = (t_data *)_data;
 	sem_wait(data->vars.dead);
 	printf("\ndead\n");
 	data->running = false;
-	return NULL;
+	return (NULL);
 }
 
-static void *wait_for_complete(void *_data)
+static void	*wait_for_complete(void *_data)
 {
 	t_data	*data;
+	int		i;
 
 	data = (t_data *)_data;
-	int	i;
-	
 	i = 0;
 	while (i < data->philo_count)
 	{
@@ -37,13 +36,13 @@ static void *wait_for_complete(void *_data)
 		i++;
 	}
 	data->running = false;
-	return NULL;
+	return (NULL);
 }
 
 static void	wait_to_end(t_data *data)
 {
-	t_thread death_observer;
-	t_thread complete_observer;
+	t_thread	death_observer;
+	t_thread	complete_observer;
 
 	pthread_create(&death_observer, NULL, wait_for_death, data);
 	pthread_create(&complete_observer, NULL, wait_for_complete, data);

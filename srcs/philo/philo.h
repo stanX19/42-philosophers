@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 17:10:39 by shatan            #+#    #+#             */
-/*   Updated: 2024/08/02 13:44:01 by shatan           ###   ########.fr       */
+/*   Updated: 2024/08/22 10:47:58 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,17 @@
 # include <unistd.h>
 
 # ifdef __APPLE__
-#  define TIME_FMT_STR "%llu"
+
 typedef u_int64_t		t_time;
+#  define TIME_FMT_STR "%llu"
+
 # else
-#  define TIME_FMT_STR "%lu"
+
 typedef suseconds_t		t_time;
+#  define TIME_FMT_STR "%lu"
+
 # endif
+
 typedef pthread_mutex_t	t_mutex;
 typedef pthread_t		t_thread;
 

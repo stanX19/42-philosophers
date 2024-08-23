@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 17:00:13 by shatan            #+#    #+#             */
-/*   Updated: 2024/08/08 14:21:55 by stan             ###   ########.fr       */
+/*   Updated: 2024/08/23 16:53:22 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	delete_data(t_data *data)
 		sem_unlink("/completed");
 	if (data->vars.dead)
 		sem_unlink("/dead");
+	if (data->vars.start_lock)
+		sem_unlink("/start_lock");
 }
 
 static t_philo	*create_philo_arr(int count, t_vars *vars)
@@ -83,6 +85,7 @@ int	init_data(t_data *data, int argc, char *const *argv)
 	data->vars.print = open_semaphore("/print", 1);
 	data->vars.dead = open_semaphore("/dead", 0);
 	data->vars.completed = open_semaphore("/completed", 0);
+	data->vars.start_lock = open_semaphore("/start_lock", 0);
 	if (errno)
 	{
 		delete_data(data);

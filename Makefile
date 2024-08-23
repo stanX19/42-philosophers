@@ -49,7 +49,7 @@ run: all
 	./$(NAME) $(ARGV)
 
 kill:
-	kill $$(ps -A | grep $(NAME) | awk '{print $1}') 2> /dev/null
+	kill $$(ps -A | grep $(NAME) | awk '{print $$1}') 2> /dev/null
 
 $(NAME): $(LIBS) $(OBJDIRS) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(IFLAGS) $(LIBS) -o $(NAME)
@@ -79,7 +79,7 @@ fclean:	clean
 	@$(RM) $(OBJDIRS) $(BONUS_OBJDIRS)
 	@$(RM) $(NAME) $(BONUS_NAME) ./a.out
 
-re: fclean $(NAME)
+re: fclean $(NAME) $(BONUS_NAME)
 
 push:
 	@echo -n "Commit name: "; read name; make fclean;\

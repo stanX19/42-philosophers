@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   subprocess.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 10:40:14 by stan              #+#    #+#             */
-/*   Updated: 2024/08/22 10:41:37 by stan             ###   ########.fr       */
+/*   Updated: 2024/08/23 17:02:23 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	start_all_subprocess(t_data *data)
 	int	i;
 
 	i = 0;
-	data->vars.start_time = get_current_ms();
 	while (i < data->philo_count)
 	{
 		data->philo_arr[i].pid = fork();
@@ -34,6 +33,9 @@ void	start_all_subprocess(t_data *data)
 		}
 		i++;
 	}
+	i = 0;
+	while (i++ < data->philo_count)
+		sem_post(data->vars.start_lock);
 }
 
 void	end_all_subprocess(t_data *data)

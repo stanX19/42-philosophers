@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 14:26:44 by shatan            #+#    #+#             */
-/*   Updated: 2024/08/23 16:03:59 by shatan           ###   ########.fr       */
+/*   Updated: 2024/08/23 17:12:00 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_time	get_hungry_time(t_philo *philo)
 bool	philo_is_dead(t_philo *philo)
 {
 	return (philo->state == S_DEAD
-		|| get_hungry_time(philo) >= philo->vars->death_time + 5);
+		|| get_hungry_time(philo) >= philo->vars->death_time + 10);
 }
 
 void	philo_announce_action(t_philo *philo, const char *msg)
@@ -44,7 +44,6 @@ void	philo_accurate_sleep(t_philo *philo, t_time time)
 	t_time	end;
 
 	end = get_time_passed(philo) + time;
-	end -= end % 100;
 	while (get_time_passed(philo) < end)
-		usleep(100);
+		usleep(1);
 }

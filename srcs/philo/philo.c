@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 17:04:17 by shatan            #+#    #+#             */
-/*   Updated: 2024/08/22 10:48:07 by stan             ###   ########.fr       */
+/*   Updated: 2024/08/23 16:59:21 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	*death_observer_func(void *_philo)
 	t_philo	*philo;
 
 	philo = (t_philo *)_philo;
-	while (1)
+	while (philo->state != S_DEAD)
 	{
 		if (philo_is_dead(philo))
 		{
@@ -26,6 +26,7 @@ static void	*death_observer_func(void *_philo)
 		}
 		usleep(1000);
 	}
+	return (NULL);
 }
 
 void	*philo_run(void *_philo)
@@ -43,6 +44,6 @@ void	*philo_run(void *_philo)
 		philo_start_eat(philo);
 		philo_set_state(philo, S_THINKING);
 	}
-	pthread_detach(death_observer);
+	pthread_join(death_observer, NULL);
 	return (NULL);
 }

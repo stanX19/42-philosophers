@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 17:04:17 by shatan            #+#    #+#             */
-/*   Updated: 2024/08/22 10:44:56 by stan             ###   ########.fr       */
+/*   Updated: 2024/08/23 17:09:53 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	philo_run(t_philo *philo)
 {
 	t_thread	observer;
 
+	sem_wait(philo->vars->start_lock);
+	philo->vars->start_time = get_current_ms();
 	philo->last_eat = philo->vars->start_time;
 	pthread_create(&observer, NULL, observer_func, philo);
 	if (philo->index % 2 == 0)

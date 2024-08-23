@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 17:10:39 by shatan            #+#    #+#             */
-/*   Updated: 2024/08/22 10:45:32 by stan             ###   ########.fr       */
+/*   Updated: 2024/08/23 16:52:14 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_vars
 	sem_t				*print;
 	sem_t				*dead;
 	sem_t				*completed;
+	sem_t				*start_lock;
 }						t_vars;
 
 typedef struct s_philo

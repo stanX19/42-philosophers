@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 10:46:22 by stan              #+#    #+#             */
-/*   Updated: 2024/08/22 10:47:27 by stan             ###   ########.fr       */
+/*   Updated: 2024/08/23 15:56:07 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ bool	philo_is_dead(t_philo *philo)
 
 void	philo_announce_action(t_philo *philo, const char *msg)
 {
-	printf(TIME_FMT_STR " %i %s\n", get_time_passed(philo), philo->index, msg);
+	t_time time_passed;
+
+	time_passed = get_time_passed(philo);
+	printf(TIME_FMT_STR " %i %s\n", time_passed - time_passed % 100, philo->index, msg);
 }
 
 void	philo_accurate_sleep(t_philo *philo, t_time time)

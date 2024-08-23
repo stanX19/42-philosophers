@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 21:15:30 by stan              #+#    #+#             */
-/*   Updated: 2024/08/22 10:45:45 by stan             ###   ########.fr       */
+/*   Updated: 2024/08/23 15:54:35 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static void	*wait_for_death(void *_data)
 
 	data = (t_data *)_data;
 	sem_wait(data->vars.dead);
-	printf("\ndead\n");
 	data->running = false;
 	return (NULL);
 }

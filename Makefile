@@ -22,11 +22,11 @@ HEADER_DIR	= philo
 HEADERS		:= $(shell find $(HEADER_DIR) -name '*.h')
 HEADERS_INC	= $(addprefix -I,$(sort $(dir $(HEADERS))))
 
-
+UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S), Darwin)  # macos
-	LINKERS	= 
+	LINKERS	:= 
 else
-	LINKERS	= -lpthread
+	LINKERS	:= -lpthread
 endif
 
 LIBS		= $(LIBFT) $(LINKERS)
@@ -41,8 +41,8 @@ UP			= \033[1A
 FLUSH		= \033[2K
 
 NAME		= philo
-BONUS		= philo_bonus
-ARGV		= 2 200 100 100 10
+BONUS_NAME	= philo_bonus
+ARGV		= 2 200 100 100
 
 
 run: all
@@ -54,10 +54,10 @@ kill:
 $(NAME): $(LIBS) $(OBJDIRS) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(IFLAGS) $(LIBS) -o $(NAME)
 
-$(BONUS): $(LIBS) $(BONUS_OBJDIRS) $(BONUS_OBJS)
-	$(CC) $(CFLAGS) $(BONUS_OBJS) $(IFLAGS) $(LIBS) -o $(BONUS)
+$(BONUS_NAME): $(LIBS) $(BONUS_OBJDIRS) $(BONUS_OBJS)
+	$(CC) $(CFLAGS) $(BONUS_OBJS) $(IFLAGS) $(LIBS) -o $(BONUS_NAME)
 
-all: $(NAME) $(BONUS)
+all: $(NAME) $(BONUS_NAME)
 
 $(OBJDIRS) $(BONUS_OBJDIRS):
 	mkdir -p $@
@@ -72,12 +72,12 @@ $(BONUS_OBJDIR)/%.o: $(BONUS_SRCDIR)/%.c $(BONUS_HEADERS)
 	@echo "$(UP)$(FLUSH)$(UP)$(FLUSH)$(UP)$(FLUSH)$(UP)"
 
 clean:
-	@$(RM) $(OBJS)
+	@$(RM) $(OBJS) $(BONUS_OBJS)
 
 fclean:	clean
 	@$(RM) $(TESTDIR)
-	@$(RM) $(OBJDIRS)
-	@$(RM) ./a.out
+	@$(RM) $(OBJDIRS) $(BONUS_OBJDIRS)
+	@$(RM) $(NAME) $(BONUS_NAME) ./a.out
 
 re: fclean $(NAME)
 

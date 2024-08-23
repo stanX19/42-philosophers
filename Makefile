@@ -6,7 +6,7 @@ BONUS_OBJDIRS		= $(sort $(dir $(BONUS_OBJS)))
 BONUS_OBJS			= $(subst $(BONUS_SRCDIR)/,$(BONUS_OBJDIR)/,$(subst .c,.o,$(BONUS_SRCS)))
 
 BONUS_CWD			:= $(shell pwd)
-BONUS_HEADER_DIR	= philo
+BONUS_HEADER_DIR	= srcs/philo_bonus
 BONUS_HEADERS		:= $(shell find $(BONUS_HEADER_DIR) -name '*.h')
 BONUS_HEADERS_INC	= $(addprefix -I,$(sort $(dir $(BONUS_HEADERS))))
 
@@ -18,7 +18,7 @@ OBJDIRS		= $(sort $(dir $(OBJS)))
 OBJS		= $(subst $(SRCDIR)/,$(OBJDIR)/,$(subst .c,.o,$(SRCS)))
 
 CWD			:= $(shell pwd)
-HEADER_DIR	= philo
+HEADER_DIR	= srcs/philo
 HEADERS		:= $(shell find $(HEADER_DIR) -name '*.h')
 HEADERS_INC	= $(addprefix -I,$(sort $(dir $(HEADERS))))
 

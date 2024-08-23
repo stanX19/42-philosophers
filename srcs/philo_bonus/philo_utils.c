@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 14:26:44 by shatan            #+#    #+#             */
-/*   Updated: 2024/08/23 15:56:21 by shatan           ###   ########.fr       */
+/*   Updated: 2024/08/23 16:03:59 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,12 @@ bool	philo_is_dead(t_philo *philo)
 
 void	philo_announce_action(t_philo *philo, const char *msg)
 {
-	t_time time_passed;
+	t_time	time_passed;
 
 	time_passed = get_time_passed(philo);
 	sem_wait(philo->vars->print);
-	printf(TIME_FMT_STR " %i %s\n", time_passed - time_passed % 100, philo->index, msg);
+	printf(TIME_FMT_STR " %i %s\n", time_passed - time_passed % 100,
+		philo->index, msg);
 	sem_post(philo->vars->print);
 }
 
